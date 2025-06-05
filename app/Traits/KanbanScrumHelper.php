@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Traits;
 
 use App\Models\Project;
 use App\Models\Ticket;

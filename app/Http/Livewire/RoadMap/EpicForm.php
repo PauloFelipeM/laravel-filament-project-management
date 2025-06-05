@@ -6,11 +6,12 @@ use App\Models\Epic;
 use App\Models\Project;
 use App\Models\Ticket;
 use Filament\Facades\Filament;
+use Filament\Forms\ComponentContainer;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Concerns\InteractsWithForms;
+use App\Traits\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Livewire\Component;
 
@@ -97,5 +98,10 @@ class EpicForm extends Component implements HasForms
         });
         $this->epic->delete();
         $this->emit('closeEpicDialog', true);
+    }
+
+    public function currentlyValidatingForm(?ComponentContainer $form): void
+    {
+        // TODO: Implement currentlyValidatingForm() method.
     }
 }

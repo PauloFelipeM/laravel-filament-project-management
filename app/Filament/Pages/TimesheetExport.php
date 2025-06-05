@@ -6,7 +6,7 @@ namespace App\Filament\Pages;
 
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Concerns\InteractsWithForms;
+use App\Traits\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Pages\Page;
 use Filament\Forms\Components\DatePicker;
@@ -23,7 +23,7 @@ class TimesheetExport extends Page implements HasForms
 
     protected static string $view = 'filament.pages.timesheet-export';
 
-    protected static function getNavigationGroup(): ?string
+    public static function getNavigationGroup(): ?string
     {
         return __('Timesheet');
     }

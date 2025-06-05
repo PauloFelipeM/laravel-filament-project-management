@@ -8,10 +8,10 @@ use App\Models\TicketPriority;
 use App\Models\TicketStatus;
 use App\Models\TicketType;
 use App\Models\User;
-use Closure;
 use Filament\Facades\Filament;
 use Filament\Forms;
-use Filament\Forms\Concerns\InteractsWithForms;
+use App\Traits\InteractsWithForms;
+use Filament\Forms\ComponentContainer;
 use Filament\Forms\Contracts\HasForms;
 use Livewire\Component;
 
@@ -80,7 +80,7 @@ class IssueForm extends Component implements HasForms
                                         return $query->where('users.id', auth()->user()->id);
                                     })->pluck('name', 'id')->toArray()
                                 )
-                                ->afterStateUpdated(fn(Closure $get) => $this->initProject($get('project_id')))
+                                ->afterStateUpdated(fn(\Filament\Forms\Get $get) => $this->initProject($get('project_id')))
                                 ->required(),
 
                             Forms\Components\Select::make('sprint_id')
@@ -182,5 +182,10 @@ class IssueForm extends Component implements HasForms
     public function cancel($refresh = false): void
     {
         $this->emit('closeTicketDialog', $refresh);
+    }
+
+    public function currentlyValidatingForm(?ComponentContainer $form): void
+    {
+        // TODO: Implement currentlyValidatingForm() method.
     }
 }

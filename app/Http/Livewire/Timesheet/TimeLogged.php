@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Timesheet;
 
 use App\Models\Ticket;
+use Filament\Support\Contracts\TranslatableContentDriver;
 use Filament\Tables;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -61,5 +62,10 @@ class TimeLogged extends Component implements HasTable
                 ->sortable()
                 ->searchable(),
         ];
+    }
+
+    public function makeFilamentTranslatableContentDriver(): ?TranslatableContentDriver
+    {
+        return null;
     }
 }

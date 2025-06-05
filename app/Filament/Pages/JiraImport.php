@@ -2,8 +2,9 @@
 
 namespace App\Filament\Pages;
 
-use App\Helpers\JiraHelper;
 use App\Jobs\ImportJiraTicketsJob;
+use App\Traits\InteractsWithForms;
+use App\Traits\JiraHelper;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\CheckboxList;
@@ -11,7 +12,6 @@ use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard;
-use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Pages\Page;
 use Illuminate\Contracts\Support\Htmlable;
@@ -22,7 +22,7 @@ class JiraImport extends Page implements HasForms
 {
     use InteractsWithForms, JiraHelper;
 
-    protected static ?string $navigationIcon = 'heroicon-o-cloud-download';
+    protected static ?string $navigationIcon = 'heroicon-o-cloud-arrow-down';
 
     protected static string $view = 'filament.pages.jira-import';
 
@@ -52,22 +52,22 @@ class JiraImport extends Page implements HasForms
         $this->form->fill();
     }
 
-    protected static function shouldRegisterNavigation(): bool
+    public static function shouldRegisterNavigation(): bool
     {
         return auth()->user()->can('Import from Jira');
     }
 
-    protected function getSubheading(): string|Htmlable|null
+    public function getSubheading(): string|Htmlable|null
     {
         return __('Use this section to login into your jira account and import tickets to this application');
     }
 
-    protected static function getNavigationLabel(): string
+    public static function getNavigationLabel(): string
     {
         return __('Jira import');
     }
 
-    protected static function getNavigationGroup(): ?string
+    public static function getNavigationGroup(): ?string
     {
         return __('Settings');
     }

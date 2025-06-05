@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 
 use Illuminate\Support\HtmlString;
-use JeffGreco13\FilamentBreezy\Pages\MyProfile as BaseProfile;
+use JeffGreco13\FilamentBreezy\Pages\MyProfilePage as BaseProfile;
 
 class Profile extends BaseProfile
 {

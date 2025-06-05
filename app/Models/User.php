@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Notifications\UserCreatedNotification;
+use App\Traits\TwoFactorAuthenticatable;
 use Devaslanphp\FilamentAvatar\Core\HasAvatarUrl;
 use DutchCodingCompany\FilamentSocialite\Models\SocialiteUser;
 use Filament\Models\Contracts\FilamentUser;
@@ -14,7 +15,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use JeffGreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
 use ProtoneMedia\LaravelVerifyNewEmail\MustVerifyNewEmail;
 use Ramsey\Uuid\Uuid;
@@ -121,7 +121,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
         );
     }
 
-    public function canAccessFilament(): bool
+    public function canAccessPanel(\Filament\Panel $panel): bool
     {
         return true;
     }

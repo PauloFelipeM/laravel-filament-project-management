@@ -49,8 +49,6 @@ COPY docker-compose/supervisord.app.conf /etc/supervisor/conf.d/supervisord.app.
 
 RUN chown -R www-data: /etc/supervisor/
 RUN chown -R www-data: /usr/bin/supervisord
-RUN chown -R www-data:www-data /var/www/html
-RUN chmod 755 /var/www/html
 
 WORKDIR /var/www/html
 

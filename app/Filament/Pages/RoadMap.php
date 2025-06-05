@@ -6,7 +6,7 @@ use App\Models\Epic;
 use App\Models\Project;
 use Carbon\Carbon;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Concerns\InteractsWithForms;
+use App\Traits\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Pages\Page;
 use Illuminate\Database\Eloquent\Builder;
@@ -35,12 +35,12 @@ class RoadMap extends Page implements HasForms
         'updateEpic'
     ];
 
-    protected static function getNavigationLabel(): string
+    public static function getNavigationLabel(): string
     {
         return __('Road Map');
     }
 
-    protected static function getNavigationGroup(): ?string
+    public static function getNavigationGroup(): ?string
     {
         return __('Management');
     }

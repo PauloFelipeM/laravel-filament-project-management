@@ -25,11 +25,9 @@ class WeeklyReport extends BarChartWidget
         $weekDaysData = $this->getWeekStartAndFinishDays();
 
         $this->filter = $weekDaysData['weekStartDate'] . ' - ' . $weekDaysData['weekEndDate'];
-
-        parent::__construct($id);
     }
 
-    protected function getHeading(): string
+    public function getHeading(): string
     {
         return __('Weekly logged time');
     }

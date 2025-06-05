@@ -4,8 +4,9 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use Filament\Facades\Filament;
+use Filament\Forms\ComponentContainer;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Concerns\InteractsWithForms;
+use App\Traits\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -54,5 +55,10 @@ class ValidateAccount extends Component implements HasForms
         auth()->login($this->user);
         Filament::notify('success', __('Account verified'), true);
         redirect()->to(route('filament.pages.dashboard'));
+    }
+
+    public function currentlyValidatingForm(?ComponentContainer $form): void
+    {
+        // TODO: Implement currentlyValidatingForm() method.
     }
 }

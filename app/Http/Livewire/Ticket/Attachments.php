@@ -4,8 +4,9 @@ namespace App\Http\Livewire\Ticket;
 
 use App\Models\Ticket;
 use Filament\Facades\Filament;
+use Filament\Forms\ComponentContainer;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
-use Filament\Forms\Concerns\InteractsWithForms;
+use App\Traits\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\TextColumn;
@@ -99,5 +100,10 @@ class Attachments extends Component implements HasForms, HasTable
                     Filament::notify('success', __('Ticket attachment deleted'));
                 })
         ];
+    }
+
+    public function currentlyValidatingForm(?ComponentContainer $form): void
+    {
+        // TODO: Implement currentlyValidatingForm() method.
     }
 }

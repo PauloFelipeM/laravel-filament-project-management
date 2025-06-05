@@ -1,47 +1,46 @@
 version: "3.3"
 
-volumes:
-  mysql_data:
-
 services:
-  sqldb:
-    image: mysql:5.7
-    container_name: helper-mysql
-    volumes:
-      - mysql_data:/var/lib/mysql
-    environment:
-      - MYSQL_DATABASE=helper
-      - MYSQL_USER=helper
-      - MYSQL_PASSWORD=helper
-      - MYSQL_ROOT_PASSWORD=helper
-    command: --default-storage-engine innodb
-    restart: unless-stopped
-    healthcheck:
-      test: mysqladmin -p$$MYSQL_ROOT_PASSWORD ping -h localhost
-      interval: 20s
-      start_period: 10s
-      timeout: 10s
-      retries: 3
-  helper:
-    image: eloufirhatim/helper:latest
-    container_name: helper-server
-    environment:
-      - DB_CONNECTION=mysql
-      - DB_HOST=sqldb
-      - DB_PORT=3306
-      - DB_DATABASE=helper
-      - DB_USERNAME=helper
-      - DB_PASSWORD=helper
-      - MAIL_MAILER=smtp
-      - MAIL_HOST=smtp.mailtrap.io
-      - MAIL_PORT=2525
-      - MAIL_USERNAME=your_username
-      - MAIL_PASSWORD=your_password
-      - MAIL_ENCRYPTION=tls
-    depends_on:
-      - sqldb
-    restart: "no"
-    ports:
-      - 8000:8000
-    volumes:
-      - /etc/localtime:/etc/localtime
+    app:
+        build:
+            dockerfile: Dockerfile
+        ports:
+            - "9001:80"
+            - "3001:3001"
+        platform: linux/amd64
+        restart: unless-stopped
+        depends_on:
+            - db
+        volumes:
+            - ./:/var/www/html
+        networks:
+            - projectManagementNetwork
+
+    db:
+        image: 'mysql/mysql-server:8.0'
+        restart: unless-stopped
+        ports:
+            - '3398:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: 'password'
+            MYSQL_ROOT_HOST: "%"
+            MYSQL_DATABASE: 'helper'
+            MYSQL_USER: 'helper'
+            MYSQL_PASSWORD: 'password'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        volumes:
+            - 'projectManagementMysqlData:/var/lib/mysql'
+        networks:
+            - projectManagementNetwork
+        healthcheck:
+            test: [ "CMD", "mysqladmin", "ping", "-ppassword" ]
+            retries: 3
+            timeout: 5s
+        command: mysqld --default-authentication-plugin=mysql_native_password --skip-mysqlx
+volumes:
+    projectManagementMysqlData:
+        driver: local
+
+networks:
+    projectManagementNetwork:
+        driver: bridge
